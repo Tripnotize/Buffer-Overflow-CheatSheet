@@ -1,12 +1,15 @@
 #!/usr/bin/env python
+# Fuzzer for testing Overflows
 
 import socket, sys, time
 
 ip = '192.168.0.0'
 port = 9999
 
+prefix = b""
 buffer = b"A" * 100
 timeout = 5
+postfix = b""
 
 while True:
 	try:
