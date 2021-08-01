@@ -1,0 +1,35 @@
+# Cheatsheet for mona.py
+
+# Set working directory
+
+```
+!mona config -set workingfolder c:\mona\%p
+
+``` 
+
+# Finding Bad Characters
+
+```
+!mona bytearray -b "\x00"
+!mona compare -f C:\mona\<PATH>\bytearray.bin -a <ESP_ADDRESS>
+
+```
+
+# Excluding Bad Characters
+
+```
+!mona bytearray -b "\x00 + <BAD_CHARS>"
+!mona compare -f C:\mona\<PATH>\bytearray.bin -a <ESP_ADDRESS>
+
+```
+# Finding a Jump Point (JMP ESP) 
+
+```
+# Inside the executable
+!mona jmp -r esp -cpb "<BAD_CHARS>"  
+
+# Inside a DLL
+!mona modules
+!mona find -s "\xff\xe4" -m <DLL>
+
+```
