@@ -2,7 +2,7 @@
 
 import socket, sys, time
 
-ip = '192.168.42.240'
+ip = '192.168.0.0'
 port = 9999
 
 buffer = b"A" * 100
