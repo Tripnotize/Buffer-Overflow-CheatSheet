@@ -1,15 +1,39 @@
 #!/usr/bin/env python
-# Fuzzer for testing Overflows
 
 import socket, sys, time
 
-ip = '192.168.0.0'
-port = 9999
 
+print('''
+    ______	                                ____                  ______
+   / ____/_  __________  ___  _____            / __ \_   _____  _____/ __/ /___ _      __
+  / /_  / / / /_  /_  / / _ \/ ___/  ______   / / / / | / / _ \/ ___/ /_/ / __ \ | /| / /
+ / __/ / /_/ / / /_/ /_/  __/ /     /_____/  / /_/ /| |/ /  __/ /  / __/ / /_/ / |/ |/ / 
+/_/    \__,_/ /___/___/\___/_/               \____/ |___/\___/_/  /_/ /_/\____/|__/|__/  
+                                                                                       
+                                  [*] Starting...	                                                                                         
+''')
+	
+
+
+try:
+	a = sys.argv[1]
+	b = sys.argv[2]
+
+except:
+	print("[!] Usage: python fuzzer.py <target> <port>")
+	sys.exit()	
+
+ip = str(a)
+port = int(b)
+	
 prefix = b""
 buffer = b"A" * 100
-timeout = 5
 postfix = b""
+timeout = 5
+
+req = prefix + buffer + postfix
+
+print("[*] Connecting to " + ip + ":" + str(port))
 
 while True:
 	try:
@@ -18,7 +42,7 @@ while True:
 		s.settimeout(timeout)
 		s.recv(1024)
 		print("[*] Fuzzing with " + str(len(buffer)) +" bytes")
-		s.send(buffer + b'\r\n')
+		s.send(req + b'\r\n')
 		s.recv(1024)
 		
 	except:
